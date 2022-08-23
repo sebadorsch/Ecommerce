@@ -3,7 +3,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 import os
 
 
-class UserManager(BaseUserManager):
+class UserAccountManager(BaseUserManager):
 	""" class User Manager """
 
 	def create_user(self, email, password=None, **kwargs):
@@ -30,7 +30,7 @@ class UserManager(BaseUserManager):
 		return user
 
 
-class User(AbstractBaseUser, PermissionsMixin):
+class UserAccount(AbstractBaseUser, PermissionsMixin):
 	""" class User modified to log with email """
 
 	email = models.EmailField(max_length=255, unique=True)
@@ -39,7 +39,7 @@ class User(AbstractBaseUser, PermissionsMixin):
 	is_active = models.BooleanField(default=True)
 	is_staff = models.BooleanField(default=False)
 
-	objects = UserManager()
+	objects = UserAccountManager()
 
 	USERNAME_FIELD = 'email'
 	REQUIRED_FIELDS = ['first_name', 'last_name']

@@ -1,3 +1,4 @@
+from datetime import timedelta
 from pathlib import Path
 import os
 import environ
@@ -15,6 +16,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+PROJECT_APPS = [
+    'apps.users',
+]
+
+ECOMMERCE_APPS = [
+
+]
 
 DJANGO_APPS = [
     'django.contrib.admin',
@@ -23,14 +31,6 @@ DJANGO_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-]
-
-PROJECT_APPS = [
-
-]
-
-ECOMMERCE_APPS = [
-    'apps.users'
 ]
 
 THIRD_PARTY_APPS = [
@@ -44,7 +44,7 @@ THIRD_PARTY_APPS = [
     'ckeditor_uploader',
 ]
 
-INSTALLED_APPS = DJANGO_APPS + PROJECT_APPS + ECOMMERCE_APPS + THIRD_PARTY_APPS
+INSTALLED_APPS = PROJECT_APPS + DJANGO_APPS + ECOMMERCE_APPS + THIRD_PARTY_APPS
 
 
 CKEDITOR_COFIGS = {
@@ -173,8 +173,44 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
 )
 
+SIMPLE_JWT = {
+    'AUTH_HEADER_TYPES': ('JWT', ),
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=86400),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
+    'ROTATE_REFRESFH_TOKENS':True,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'AUTH_TOKEN_CLASSES': (
+        'rest_framework_simplejwt.tokens.AccessToken',
+    )
+}
+
+DJOSER = {
+    'LOGIN_FIELD': 'email',
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'USERNAME_CHANGED_EMAIL_CONFIRMATION': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'SEND_CONFIRMATION_EMAIL': True,
+    'SET_USERNAME_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_URL': 'password/reset/confirm/{uid}/{token}',
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'USERNAME_RESET_CONFIRM_URL': 'email/reset/confirm/{uid}/{token}',
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
+    # 'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': ['http://127.0.0.1:8000/google', 'http://127.0.0.1:8000/facebook'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [os.environ.get('WEBSITE')+'/google', os.environ.get('WEBSITE')+'/facebook'],
+    'SERIALIZERS': {
+        'user_create': 'apps.users.serializers.UserCreateSerializer',
+        'user': 'apps.users.serializers.UserCreateSerializer',
+        'current_user': 'apps.users.serializers.UserCreateSerializer',
+        'user_delete': 'djoser.serializers.UserDeleteSerializer',
+    },
+}
+
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+AUTH_USER_MODEL = "users.UserAccount"
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
