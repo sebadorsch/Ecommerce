@@ -2,6 +2,7 @@
 import { Fragment } from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
+import {Link} from "react-router-dom";
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -64,6 +65,16 @@ export default function Navbar() {
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+                {/*{% if not loged %}*/}
+                <Link to="/login" className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-2">
+                  <span className="absolute w-5 inset-y-0 left-0 flex items-center pl-1"></span>
+                  Sign in
+                </Link>
+                <Link to="/register" className="group relative flex justify-center rounded-md border border-transparent bg-orange-600 py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-2">
+                  <span className="absolute w-5 inset-y-0 left-0 flex items-center pl-1"></span>
+                  Register
+                </Link>
+                {/* {% if loged %}*/}
                 <button
                   type="button"
                   className="rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -72,7 +83,6 @@ export default function Navbar() {
                   <BellIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
-                {/* Profile dropdown */}
                 <Menu as="div" className="relative ml-3">
                   <div>
                     <Menu.Button className="flex rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
@@ -127,6 +137,7 @@ export default function Navbar() {
                     </Menu.Items>
                   </Transition>
                 </Menu>
+                {/* {% endif %}*/}
               </div>
             </div>
           </div>

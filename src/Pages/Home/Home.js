@@ -1,10 +1,10 @@
-import {Layout} from "../Components/core/Layout";
+import {Layout} from "../../Components/core/Layout";
 
 
 const Home = () => {
   return(
     <Layout>
-      Home
+      home
     </Layout>
   )
 }

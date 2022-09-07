@@ -3,16 +3,18 @@ from pathlib import Path
 import os
 import environ
 
-env = environ.Env()
-environ.Env.read_env()
-
+env = environ.Env(
+    DEBUG=(bool, False)
+)
 ENVIRONMENT = env
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRET_KEY = os.environ.get('SECRET_KEY')
+environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-DEBUG = True
+SECRET_KEY = env('SECRET_KEY')
+
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = ['*']
 
@@ -92,11 +94,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 
 DATABASES = {'default': {
     'ENGINE': 'django.db.backends.postgresql',
-    'NAME': os.environ.get('DB_NAME'),
-    'USER': os.environ.get('DB_USER'),
-    'PASSWORD': os.environ.get('DB_PASSWORD'),
-    'HOST': os.environ.get('DB_HOST'),
-    'PORT': os.environ.get('DB_PORT'),
+    'NAME': env('DB_NAME'),
+    'USER': env('DB_USER'),
+    'PASSWORD': env('DB_PASSWORD'),
+    'HOST': env('DB_HOST'),
+    'PORT': env('DB_PORT'),
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
@@ -104,8 +106,10 @@ DATABASES["default"]["ATOMIC_REQUESTS"] = True
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
     'http://localhost:8000',
+    'http://localhost:8001',
     'http://127.0.0.1:3000',
     'http://127.0.0.1:8000',
+    'http://127.0.0.1:8001',
 ]
 
 CSRF_TRUSTED_ORIGINS = [
@@ -177,7 +181,7 @@ SIMPLE_JWT = {
     'AUTH_HEADER_TYPES': ('JWT', ),
     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=86400),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=30),
-    'ROTATE_REFRESFH_TOKENS':True,
+    'ROTATE_REFRESFH_TOKENS': True,
     'BLACKLIST_AFTER_ROTATION': True,
     'AUTH_TOKEN_CLASSES': (
         'rest_framework_simplejwt.tokens.AccessToken',
@@ -198,7 +202,7 @@ DJOSER = {
     'ACTIVATION_URL': 'activate/{uid}/{token}',
     'SEND_ACTIVATION_EMAIL': True,
     'SOCIAL_AUTH_TOKEN_STRATEGY': 'djoser.social.token.jwt.TokenStrategy',
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [os.environ.get('WEBSITE')+'/google', os.environ.get('WEBSITE')+'/facebook'],
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': [env('WEBSITE')+'/google', env('WEBSITE')+'/facebook'],
     'SERIALIZERS': {
         'user_create': 'apps.users.serializers.UserCreateSerializer',
         'user': 'apps.users.serializers.UserCreateSerializer',
