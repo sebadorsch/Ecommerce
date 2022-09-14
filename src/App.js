@@ -10,7 +10,6 @@ import Login from "./Pages/Login/Login"
 import Activation from "./Pages/Activation/Activation"
 
 
-
 function App(){
   return(
     <Provider store={store}>
