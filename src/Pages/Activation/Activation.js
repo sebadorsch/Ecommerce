@@ -35,9 +35,9 @@ const Activate = ({
             >
               <TailSpin
                 type="Oval"
-                color="##C2410C"
-                width="30px"
-                height="30px"
+                color="#fff"
+                width={20}
+                height={20}
               />
             </button>
             :
