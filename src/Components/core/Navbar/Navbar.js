@@ -70,7 +70,7 @@ export default function Navbar() {
                 {/*{% if not loged %}*/}
                 <Link to="/login" className="group relative flex justify-center rounded-md border border-transparent bg-indigo-600 py-2 px-4 text-sm font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-2">
                   <span className="absolute w-5 inset-y-0 left-0 flex items-center pl-1"></span>
-                  Sign in
+                  Login
                 </Link>
                 <Link to="/register" className="group relative flex justify-center rounded-md border border-transparent bg-orange-600 py-2 px-4 text-sm font-medium text-white hover:bg-orange-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 mr-2">
                   <span className="absolute w-5 inset-y-0 left-0 flex items-center pl-1"></span>
