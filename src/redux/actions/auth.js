@@ -18,8 +18,9 @@ import{
 import { Constants } from '../../constants'
 import { setAlert } from "./alert";
 import axios from 'axios'
+import store from "../../store";
 
-export const check_authenticated = () => async dispatch => {
+export async function check_authenticated () {
   if (localStorage.getItem('access')){
     const config = {
       headers: {
@@ -36,24 +37,24 @@ export const check_authenticated = () => async dispatch => {
       const res = await axios.post(`${Constants.apiAuth}/jwt/verify/`, body, config)
 
       if (res.status === 200){
-        dispatch({
+        store.dispatch({
           type: AUTHENTICATED_SUCCESS
         })
       }
       else{
-        dispatch({
+        store.dispatch({
           type: AUTHENTICATED_FAIL
         })
       }
     }
     catch(err){
-      dispatch({
+      store.dispatch({
         type: AUTHENTICATED_FAIL
       })
     }
   }
   else{
-    dispatch({
+    store.dispatch({
       type: AUTHENTICATED_FAIL
     })
   }
@@ -119,7 +120,7 @@ export const register = (first_name, last_name, email, password, re_password) =>
   }
 }
 
-export const load_user = () => async dispatch => {
+export async function load_user() {
 
   if(localStorage.getItem('access')){
     const config = {
@@ -133,25 +134,25 @@ export const load_user = () => async dispatch => {
       const res = await axios.get(`${Constants.apiAuth}/users/me/`, config)
 
       if (res.status === 200){
-        dispatch({
+        store.dispatch({
           type: USER_LOADED_SUCCESS,
           payload: res.data
         })
       }
       else{
-        dispatch({
+        store.dispatch({
           type: USER_LOADED_FAIL
         })
       }
     }
     catch (err){
-      dispatch({
+      store.dispatch({
         type: USER_LOADED_FAIL
       })
     }
   }
   else{
-    dispatch({
+    store.dispatch({
       type: USER_LOADED_FAIL
     })
   }
@@ -275,11 +276,10 @@ export const activate = (uid, token) => async dispatch => {
   }
 }
 
-export const refresh = () => async dispatch => {
+export async function refresh () {
   if (localStorage.getItem('refresh')){
     const config = {
       headers: {
-        'Accept': 'application/json',
         'Content-type': 'application/json'
       }
     }
@@ -289,28 +289,28 @@ export const refresh = () => async dispatch => {
     })
 
     try{
-      const res = await axios.post(`${Constants.apiAuth}jwt/refresh/`, body, config)
+      const res = await axios.post(`${Constants.apiAuth}/jwt/refresh/`, body, config)
 
       if (res.status === 200){
-        dispatch({
+        store.dispatch({
           type: REFRESH_SUCCESS,
           payload: res.data
         })
       }
       else{
-        dispatch({
+        store.dispatch({
           type: REFRESH_FAIL
         })
       }
     }
     catch(err){
-      dispatch({
+      store.dispatch({
         type: REFRESH_FAIL
       })
     }
   }
   else {
-    dispatch({
+    store.dispatch({
       type: REFRESH_FAIL
     })
   }

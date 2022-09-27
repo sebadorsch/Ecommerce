@@ -7,14 +7,14 @@ import { connect } from "react-redux";
 
 import Navbar from "./Navbar/Navbar";
 import Footer from "./Footer/Footer";
-import {useEffect, useState} from "react";
+import {useEffect} from "react";
 
 export const Layout = (props) => {
 
   useEffect(() => {
-        // props.refresh()
-        // props.check_authenticated()
-        // props.load_user()
+      refresh()
+      check_authenticated()
+      load_user()
     }, []);
 
   return(
@@ -27,8 +27,12 @@ export const Layout = (props) => {
   )
 }
 
-export default connect(null, {
-  check_authenticated,
-  load_user,
-  refresh
-}) (Layout)
+const mapDispatchToProps = dispatch => {
+  return(
+    dispatch(
+      refresh(),
+      check_authenticated(),
+      load_user()))
+};
+
+export default connect(null, mapDispatchToProps) (Layout)
