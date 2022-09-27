@@ -130,7 +130,7 @@ export const load_user = () => async dispatch => {
     }
 
     try {
-      const res = await axios.get(`${Constants.apiAuth}/auth/users/me/`, config)
+      const res = await axios.get(`${Constants.apiAuth}/users/me/`, config)
 
       if (res.status === 200){
         dispatch({
