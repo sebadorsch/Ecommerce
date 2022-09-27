@@ -33,7 +33,7 @@ export const check_authenticated = () => async dispatch => {
     })
 
     try{
-      const res = await axios.post(`${process.env.AUTH_API}/jwt/verify/`, body, config)
+      const res = await axios.post(`${Constants.apiAuth}/jwt/verify/`, body, config)
 
       if (res.status === 200){
         dispatch({
@@ -130,7 +130,7 @@ export const load_user = () => async dispatch => {
     }
 
     try {
-      const res = await axios.get(`${process.env.AUTH_API}/auth/users/me/`, config)
+      const res = await axios.get(`${Constants.apiAuth}/auth/users/me/`, config)
 
       if (res.status === 200){
         dispatch({
@@ -289,7 +289,7 @@ export const refresh = () => async dispatch => {
     })
 
     try{
-      const res = await axios.post(`${process.env.AUTH_API}/jwt/refresh/`, body, config)
+      const res = await axios.post(`${Constants.apiAuth}jwt/refresh/`, body, config)
 
       if (res.status === 200){
         dispatch({
