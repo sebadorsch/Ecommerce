@@ -1,10 +1,10 @@
-/* This example requires Tailwind CSS v2.0+ */
-import { Fragment } from 'react'
+import { Fragment} from 'react'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, BellIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import {Link} from "react-router-dom";
 import Alert from '../Alert/Alert'
 import {connect} from "react-redux";
+import {logout} from "../../../redux/actions/auth";
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -17,10 +17,15 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
-function Navbar(
-  isAutenticated,
-  user
-) {
+function Navbar({
+    isAuthenticated,
+    user,
+    logout
+  }){
+
+  const logOutHandler = () => {
+    logout()
+  }
 
   const authLinks = (<>
     <button
@@ -75,10 +80,11 @@ function Navbar(
           <Menu.Item>
             {({ active }) => (
               <a
-                href="#top"
+                onClick={logOutHandler}
                 className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                style={{cursor: 'pointer'}}
               >
-                Sign out
+                Log Out
               </a>
             )}
           </Menu.Item>
@@ -148,7 +154,7 @@ function Navbar(
                 </div>
               </div>
               <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-                {isAutenticated ? authLinks : unAuthLinks}
+                {isAuthenticated ? authLinks : unAuthLinks}
               </div>
             </div>
           </div>
@@ -179,11 +185,11 @@ function Navbar(
   )
 }
 
-const mapDispatchToProps = state => ({
+const mapStateToProps = state => ({
   isAuthenticated: state.Auth.isAuthenticated,
-  user: state.Auth.user
+  user: state.Auth.user,
 })
 
-export default connect (mapDispatchToProps,{
-
+export default connect (mapStateToProps, {
+  logout
 }) (Navbar)

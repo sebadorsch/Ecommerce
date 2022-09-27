@@ -21,3 +21,5 @@ export const REMOVE_AUTH_LOADING = 'REMOVE_AUTH_LOADING'
 
 export const SET_ALERT = 'SET_ALERT'
 export const REMOVE_ALERT = 'REMOVE_ALERT'
+
+export const LOGOUT = 'LOGOUT'

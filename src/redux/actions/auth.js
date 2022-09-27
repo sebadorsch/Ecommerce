@@ -12,7 +12,8 @@ import{
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
   REFRESH_SUCCESS,
-  REFRESH_FAIL
+  REFRESH_FAIL,
+  LOGOUT
 } from "./types";
 
 import { Constants } from '../../constants'
@@ -314,4 +315,11 @@ export async function refresh () {
       type: REFRESH_FAIL
     })
   }
+}
+
+export const logout = () => dispatch => {
+    dispatch({
+        type: LOGOUT
+    });
+    dispatch(setAlert('Successfully logged out', 'green'));
 }

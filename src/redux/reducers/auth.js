@@ -13,6 +13,7 @@ import {
   REFRESH_FAIL,
   AUTHENTICATED_SUCCESS,
   AUTHENTICATED_FAIL,
+  LOGOUT
 } from "../actions/types";
 
 const initialState = {
@@ -88,6 +89,7 @@ export default function Auth(state = initialState, action){
     case REGISTER_FAIL:
     case REFRESH_FAIL:
     case LOGIN_FAIL:
+    case LOGOUT:
       localStorage.removeItem('access')
       localStorage.removeItem('refresh')
       return {
