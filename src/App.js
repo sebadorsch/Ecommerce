@@ -9,6 +9,7 @@ import Register from "./Pages/Register/Register";
 import Login from "./Pages/Login/Login"
 import Activation from "./Pages/Activation/Activation"
 import ResetPassword from "./Pages/ResetPassword/ResetPassword";
+import ResetPasswordConfirm from "./Pages/ResetPassword/ResetPasswordConfirm";
 
 
 function App(){
@@ -23,6 +24,7 @@ function App(){
           <Route exact path='/login' element={ <Login/> }/>
           <Route exact path='/activate/:uid/:token' element={ <Activation/> }/>
           <Route exact path='/reset_password' element={ <ResetPassword/> }/>
+          <Route exact path='/password/reset/confirm/:uid/:token' element={ <ResetPasswordConfirm/> }/>
 
 
 
